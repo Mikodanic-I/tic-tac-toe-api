@@ -1,0 +1,37 @@
+{
+  "name": "tic-tac-toe-api",
+  "version": "1.0.0",
+  "description": "Tic Tac Toe API made with GraphQL and TypeScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --exec ts-node src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mikodanic-I/tic-tac-toe-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mikodanic-I/tic-tac-toe-api/issues"
+  },
+  "homepage": "https://github.com/Mikodanic-I/tic-tac-toe-api#readme",
+  "dependencies": {
+    "apollo-server-express": "^3.10.0",
+    "class-validator": "^0.13.2",
+    "express": "^4.18.1",
+    "graphql": "^15.8.0",
+    "reflect-metadata": "^0.1.13",
+    "type-graphql": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/graphql": "^14.5.0",
+    "@types/node": "^18.6.4",
+    "nodemon": "^2.0.19",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.7.4"
+  }
+}
