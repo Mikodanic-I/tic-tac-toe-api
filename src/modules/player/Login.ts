@@ -1,6 +1,6 @@
 import {Arg, Mutation, Resolver} from "type-graphql";
 import {Player} from "../../entity/Player";
-import {PlayerRepository} from "../../data-source/PlayerRepository";
+import {PlayerRepository} from "../../database/PlayerRepository";
 import {LoginInput} from "./login/LoginInput";
 
 @Resolver()
