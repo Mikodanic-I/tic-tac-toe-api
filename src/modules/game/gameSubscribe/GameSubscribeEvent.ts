@@ -3,8 +3,11 @@ import {Field, ObjectType} from "type-graphql";
 @ObjectType()
 export class GameSubscribeEvent {
     @Field()
-    positions: string
+    positions?: string
+
+    @Field({nullable: true})
+    player?: string
 
     @Field()
-    status: string
+    action: string // "join" |
 }

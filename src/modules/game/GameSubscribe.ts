@@ -8,9 +8,9 @@ export class GameSubscribeResolver {
     })
     newGameEvent(
         @Root() gamePayload: any,
+        // @ts-ignore
         @Arg('gameId') gameId: string
     ): GameSubscribeEvent {
-        console.log(gamePayload, gameId);
-        return { positions: "kurcina", status: "jos veca..." }
+        return gamePayload
     }
 }

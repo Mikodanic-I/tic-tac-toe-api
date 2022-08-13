@@ -17,10 +17,8 @@ export class JoinResolver {
         if (!activeGame) return null
 
         const joinedGame = GameRepository.Save(gameId, {...activeGame, player2: player})
-        // TODO: Subscribe to the joined game
 
-        await pubSub.publish(gameId, {status: "active", positions: "kurcina"})
-
+        await pubSub.publish(gameId, {action: "join", player: player})
 
         return joinedGame
     }
