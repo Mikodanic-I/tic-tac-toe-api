@@ -1,4 +1,4 @@
-import { Arg, Mutation, Resolver } from "type-graphql";
+import {Arg, Mutation, PubSub, PubSubEngine, Resolver} from "type-graphql";
 
 import {Game} from "../../entity/Game";
 import {GameRepository} from "../../database/GameRepository";
@@ -8,7 +8,8 @@ import {JoinInput} from "./join/JoinInput";
 export class JoinResolver {
     @Mutation(() => Game)
     async join(
-        @Arg('data') { gameId, player }: JoinInput
+        @Arg('data') { gameId, player }: JoinInput,
+        @PubSub() pubSub: PubSubEngine
     ): Promise<Game | null> {
 
         const activeGame = GameRepository.Get(gameId)
@@ -17,6 +18,8 @@ export class JoinResolver {
 
         const joinedGame = GameRepository.Save(gameId, {...activeGame, player2: player})
         // TODO: Subscribe to the joined game
+
+        await pubSub.publish(gameId, {status: "active", positions: "kurcina"})
 
 
         return joinedGame
