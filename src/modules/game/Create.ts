@@ -1,5 +1,5 @@
-import { Arg, Mutation, Resolver } from "type-graphql";
-import { v4 as uuidv4 } from 'uuid'
+import {Arg, Mutation, Resolver} from "type-graphql";
+import {v4 as uuidv4} from 'uuid'
 
 import {CreateInput} from "./create/CreateInput";
 import {Game} from "../../entity/Game";
@@ -11,7 +11,7 @@ export class CreateResolver {
     async create(
         @Arg('data') { player, type }: CreateInput
     ): Promise<Game> {
-        const activeGame = GameRepository.Add({
+        return GameRepository.Add({
             id: uuidv4(),
             player1: player,
             player2: undefined,
@@ -20,9 +20,5 @@ export class CreateResolver {
             winner: undefined,
             type
         })
-
-        // TODO: Subscribe to the game subscription
-
-        return activeGame
     }
 }
