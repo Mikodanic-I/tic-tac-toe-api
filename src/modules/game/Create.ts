@@ -15,8 +15,8 @@ export class CreateResolver {
             id: uuidv4(),
             player1: player,
             player2: undefined,
-            // Stringified object
-            positions: '{"pos00":null,"pos01":null,"pos02":null,"pos10":null,"pos11":null,"pos12":null,"pos20":null,"pos21":null,"pos22":null}',
+            // Stringified array
+            positions: '[[null,null,null],[null,null,null],[null,null,null]]',
             winner: undefined,
             type
         })

@@ -9,5 +9,8 @@ export class MakeMoveInput {
     player: number
 
     @Field()
-    move: string
+    moveX: number
+
+    @Field()
+    moveY: number
 }

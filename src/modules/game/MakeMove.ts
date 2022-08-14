@@ -10,7 +10,7 @@ import {GameSubscribeEvent} from "./gameSubscribe/GameSubscribeEvent";
 export class MakeMoveResolver {
     @Mutation(() => Game)
     async makeMove(
-        @Arg('data') { gameId, player, move }: MakeMoveInput,
+        @Arg('data') { gameId, player, moveX, moveY }: MakeMoveInput,
         @PubSub() pubSub: PubSubEngine
     ): Promise<Game | null> {
 
@@ -20,10 +20,11 @@ export class MakeMoveResolver {
 
         const positions = JSON.parse(activeGame.positions)
 
-        if (positions[move]) return null // The player already played this position
+        if (positions[moveX][moveY]) return null // The player already played this position
 
-        positions[move] = player
+        positions[moveX][moveY] = player
 
+        // @ts-ignore
         const gameWinner: string | null = getGamewinner(positions)
 
 

@@ -1,12 +1,11 @@
-import {Positions} from "./PositionsInterface";
-
 type NumbersRange = 0 | 1 | 2
+type Positions = [][number]
 
 const checkRow = (positions: Positions, row: NumbersRange): string | null => {
 
-    const firstMove = positions[`pos${row}0`]
-    const secondMove = positions[`pos${row}1`]
-    const thirdMove = positions[`pos${row}2`]
+    const firstMove = positions[row][0]
+    const secondMove = positions[row][1]
+    const thirdMove = positions[row][2]
 
     // Check if all moves are the same and that they are not empty
     if (firstMove && firstMove === secondMove && firstMove === thirdMove)
@@ -17,9 +16,9 @@ const checkRow = (positions: Positions, row: NumbersRange): string | null => {
 
 const checkColumn = (positions: Positions, col: NumbersRange): string | null => {
 
-    const firstMove = positions[`pos0${col}`]
-    const secondMove = positions[`pos1${col}`]
-    const thirdMove = positions[`pos2${col}`]
+    const firstMove = positions[0][col]
+    const secondMove = positions[1][col]
+    const thirdMove = positions[2][col]
 
     // Check if all moves are the same and that they are not empty
     if (firstMove && firstMove === secondMove && firstMove === thirdMove)
@@ -37,9 +36,9 @@ const checkLine = (positions: Positions, rowOrCol: NumbersRange): string | null 
 
 const checkFirstDiagonal = (positions: Positions): string | null => {
 
-    const firstMove = positions[`pos00`]
-    const secondMove = positions[`pos11`]
-    const thirdMove = positions[`pos22`]
+    const firstMove = positions[0][0]
+    const secondMove = positions[1][1]
+    const thirdMove = positions[2][2]
 
     // Check if all moves are the same and that they are not empty
     if (firstMove && firstMove === secondMove && firstMove === thirdMove)
@@ -50,9 +49,9 @@ const checkFirstDiagonal = (positions: Positions): string | null => {
 
 const checkSecondDiagonal = (positions: Positions): string | null => {
 
-    const firstMove = positions[`pos02`]
-    const secondMove = positions[`pos11`]
-    const thirdMove = positions[`pos20`]
+    const firstMove = positions[0][2]
+    const secondMove = positions[1][1]
+    const thirdMove = positions[2][0]
 
     // Check if all moves are the same and that they are not empty
     if (firstMove && firstMove === secondMove && firstMove === thirdMove)
