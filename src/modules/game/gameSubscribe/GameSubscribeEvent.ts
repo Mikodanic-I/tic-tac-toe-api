@@ -6,7 +6,7 @@ export class GameSubscribeEvent {
     positions?: string
 
     @Field({nullable: true})
-    player?: string
+    player?: number
 
     @Field()
     action: string // "join" |

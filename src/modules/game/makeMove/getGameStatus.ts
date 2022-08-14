@@ -1,7 +1,7 @@
 type NumbersRange = 0 | 1 | 2
-type Positions = [][number]
+type Positions = number[][]
 
-const checkRow = (positions: Positions, row: NumbersRange): string | null => {
+const checkRow = (positions: Positions, row: NumbersRange): number | null => {
 
     const firstMove = positions[row][0]
     const secondMove = positions[row][1]
@@ -14,7 +14,7 @@ const checkRow = (positions: Positions, row: NumbersRange): string | null => {
     return null
 }
 
-const checkColumn = (positions: Positions, col: NumbersRange): string | null => {
+const checkColumn = (positions: Positions, col: NumbersRange): number | null => {
 
     const firstMove = positions[0][col]
     const secondMove = positions[1][col]
@@ -26,7 +26,7 @@ const checkColumn = (positions: Positions, col: NumbersRange): string | null => 
 
     return null
 }
-const checkLine = (positions: Positions, rowOrCol: NumbersRange): string | null => {
+const checkLine = (positions: Positions, rowOrCol: NumbersRange): number | null => {
     const winner = checkRow(positions, rowOrCol) || checkColumn(positions, rowOrCol)
     if (winner) return winner
 
@@ -34,7 +34,7 @@ const checkLine = (positions: Positions, rowOrCol: NumbersRange): string | null 
 }
 
 
-const checkFirstDiagonal = (positions: Positions): string | null => {
+const checkFirstDiagonal = (positions: Positions): number | null => {
 
     const firstMove = positions[0][0]
     const secondMove = positions[1][1]
@@ -47,7 +47,7 @@ const checkFirstDiagonal = (positions: Positions): string | null => {
     return null
 }
 
-const checkSecondDiagonal = (positions: Positions): string | null => {
+const checkSecondDiagonal = (positions: Positions): number | null => {
 
     const firstMove = positions[0][2]
     const secondMove = positions[1][1]
@@ -60,14 +60,14 @@ const checkSecondDiagonal = (positions: Positions): string | null => {
     return null
 }
 
-const checkDiagonal = (positions: Positions): string | null => {
+const checkDiagonal = (positions: Positions): number | null => {
     const winner = checkFirstDiagonal(positions) || checkSecondDiagonal(positions)
     if (winner) return winner
 
     return null
 }
 
-export function getGamewinner(positions: Positions): string | null {
+export function getGamewinner(positions: Positions): number | null {
     const winner =
         checkLine(positions, 0)
         || checkLine(positions, 1)

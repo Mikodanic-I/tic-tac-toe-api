@@ -5,6 +5,7 @@ import {GameRepository} from "../../database/GameRepository";
 import {MakeMoveInput} from "./makeMove/MakeMoveInput";
 import {getGamewinner} from "./makeMove/getGameStatus";
 import {GameSubscribeEvent} from "./gameSubscribe/GameSubscribeEvent";
+import {botPlay} from "./makeMove/botPlay";
 
 @Resolver()
 export class MakeMoveResolver {
@@ -24,19 +25,22 @@ export class MakeMoveResolver {
 
         positions[moveX][moveY] = player
 
-        // @ts-ignore
-        const gameWinner: string | null = getGamewinner(positions)
+        const gameWinner: number | null = getGamewinner(positions)
 
 
         const subscriptionPayload: GameSubscribeEvent = {positions: JSON.stringify(positions), action: "makeMove"}
-        const leftMoves = false
+        const leftMoves = true
 
         if (gameWinner) {
             subscriptionPayload.player = gameWinner
             subscriptionPayload.action = "win"
         }
         else {
-            subscriptionPayload.action = leftMoves ? "draw" : "makeMove"
+            subscriptionPayload.action = leftMoves ? "makeMove" : "draw"
+        }
+
+        if (activeGame.type === "singleplayer" && subscriptionPayload.action === "makeMove") {
+            subscriptionPayload.positions = JSON.stringify(botPlay(positions))
         }
 
         await pubSub.publish(gameId, subscriptionPayload)
