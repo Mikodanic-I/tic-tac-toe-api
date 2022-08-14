@@ -20,8 +20,6 @@ import {MakeMoveResolver} from "./modules/game/MakeMove";
 import {GameSubscribeResolver} from "./modules/game/GameSubscribe";
 
 
-const PORT = 4000;
-
 const main = async () => {
     const schema = await buildSchema({
         resolvers: [RegisterResolver, LoginResolver, CreateResolver, JoinResolver, ListResolver, MakeMoveResolver, GameSubscribeResolver]
@@ -63,9 +61,9 @@ const main = async () => {
     await server.start();
     server.applyMiddleware({ app });
 
-    httpServer.listen(PORT, () => {
+    httpServer.listen(process.env.PORT, () => {
         console.log(
-            `Server is now running on http://localhost:${PORT}${server.graphqlPath}`,
+            `Server is now running on http://localhost:${process.env.PORT}${server.graphqlPath}`,
         );
     });
 }
