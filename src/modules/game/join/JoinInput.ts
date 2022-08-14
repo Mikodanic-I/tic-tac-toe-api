@@ -6,5 +6,5 @@ export class JoinInput {
     gameId: string
 
     @Field()
-    player: number // ID (Usually here would go the JWT token but this is a simple version)
+    player: number
 }
