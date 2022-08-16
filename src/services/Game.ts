@@ -12,10 +12,8 @@ export class GameService {
         return GameRepository.Add({
             id: uuidv4(),
             player1: player,
-            player2: undefined,
             // Stringified array
             positions: '[[null,null,null],[null,null,null],[null,null,null]]',
-            winner: undefined,
             type
         })
     }

@@ -14,7 +14,7 @@ const GetAll = (): Player[] => {
     return [...Players]
 }
 
-const Get = (id: number | undefined): Player | null => {
+const Get = (id: number): Player | null => {
     return Players.find(player => player.id === id) || null
 }
 
