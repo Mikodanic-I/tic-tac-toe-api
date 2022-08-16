@@ -1,7 +1,7 @@
 import {Arg, Query, Resolver} from "type-graphql";
 
 import {Game} from "../../entity/Game";
-import {GameRepository} from "../../database/GameRepository";
+import {GameService} from "../../services/Game";
 
 @Resolver()
 export class GetSingleResolver {
@@ -9,6 +9,8 @@ export class GetSingleResolver {
     async getSingle(
         @Arg('gameId') gameId: string
     ): Promise<Game | null> {
-        return GameRepository.Get(gameId)
+        const gameService = new GameService()
+
+        return gameService.get(gameId)
     }
 }

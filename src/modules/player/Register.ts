@@ -1,7 +1,7 @@
 import {Arg, Mutation, Query, Resolver} from "type-graphql";
 import {Player} from "../../entity/Player";
-import {PlayerRepository} from "../../database/PlayerRepository";
 import {RegisterInput} from "./register/RegisterInput";
+import {PlayerService} from "../../services/Player";
 
 @Resolver()
 export class RegisterResolver {
@@ -12,9 +12,11 @@ export class RegisterResolver {
 
     @Mutation(() => Player)
     async register(
-        @Arg('data') { username, email, password }: RegisterInput
+        @Arg('data') data: RegisterInput
 
     ): Promise<Player> {
-        return PlayerRepository.Add({ username, email, password })
+        const playerService = new PlayerService()
+
+        return playerService.register(data)
     }
 }

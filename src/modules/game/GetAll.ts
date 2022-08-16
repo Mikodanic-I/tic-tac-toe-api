@@ -1,12 +1,14 @@
 import {Query, Resolver} from "type-graphql";
 
 import {Game} from "../../entity/Game";
-import {GameRepository} from "../../database/GameRepository";
+import {GameService} from "../../services/Game";
 
 @Resolver()
 export class GetAllResolver {
     @Query(() => [Game])
     async GetAll(): Promise<Game[]> {
-        return GameRepository.GetAll()
+        const gameService = new GameService()
+
+        return gameService.getAll()
     }
 }
