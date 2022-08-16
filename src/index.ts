@@ -8,22 +8,14 @@ import { WebSocketServer } from 'ws';
 import { useServer } from 'graphql-ws/lib/use/ws';
 import { buildSchema } from "type-graphql";
 
-// Player
-import {RegisterResolver} from "./modules/player/Register";
-import {LoginResolver} from "./modules/player/Login";
-
-// Game
-import {CreateResolver} from "./modules/game/Create";
-import {JoinResolver} from "./modules/game/Join";
-import {GetAllResolver} from "./modules/game/GetAll";
-import {MakeMoveResolver} from "./modules/game/MakeMove";
-import {GameSubscribeResolver} from "./modules/game/GameSubscribe";
-import {GetSingleResolver} from "./modules/game/GetSingle";
+// Resolvers
+import {PlayerResolver} from "./modules/Player";
+import {GameResolver} from "./modules/Game";
 
 
 const main = async () => {
     const schema = await buildSchema({
-        resolvers: [RegisterResolver, LoginResolver, CreateResolver, JoinResolver, GetAllResolver, GetSingleResolver, MakeMoveResolver, GameSubscribeResolver]
+        resolvers: [PlayerResolver, GameResolver]
     })
 
     const app = Express();
@@ -34,7 +26,7 @@ const main = async () => {
         server: httpServer,
         path: '/graphql',
     });
-    
+
     const serverCleanup = useServer({ schema }, wsServer);
 
     const server = new ApolloServer({
