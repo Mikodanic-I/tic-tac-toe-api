@@ -4,9 +4,9 @@ import {Game} from "../../entity/Game";
 import {GameRepository} from "../../database/GameRepository";
 
 @Resolver()
-export class ListResolver {
+export class GetAllResolver {
     @Query(() => [Game])
-    async list(): Promise<Game[]> {
+    async GetAll(): Promise<Game[]> {
         return GameRepository.GetAll()
     }
 }

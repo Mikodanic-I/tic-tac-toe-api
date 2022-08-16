@@ -15,14 +15,15 @@ import {LoginResolver} from "./modules/player/Login";
 // Game
 import {CreateResolver} from "./modules/game/Create";
 import {JoinResolver} from "./modules/game/Join";
-import {ListResolver} from "./modules/game/List";
+import {GetAllResolver} from "./modules/game/GetAll";
 import {MakeMoveResolver} from "./modules/game/MakeMove";
 import {GameSubscribeResolver} from "./modules/game/GameSubscribe";
+import {GetSingleResolver} from "./modules/game/GetSingle";
 
 
 const main = async () => {
     const schema = await buildSchema({
-        resolvers: [RegisterResolver, LoginResolver, CreateResolver, JoinResolver, ListResolver, MakeMoveResolver, GameSubscribeResolver]
+        resolvers: [RegisterResolver, LoginResolver, CreateResolver, JoinResolver, GetAllResolver, GetSingleResolver, MakeMoveResolver, GameSubscribeResolver]
     })
 
     const app = Express();
@@ -33,8 +34,7 @@ const main = async () => {
         server: httpServer,
         path: '/graphql',
     });
-
-    // TODO: research later what these things and plugins are for...
+    
     const serverCleanup = useServer({ schema }, wsServer);
 
     const server = new ApolloServer({
