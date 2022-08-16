@@ -32,7 +32,8 @@ Resolvers are divided into parts
    - Create
    - GameSubscribe
    - Join
-   - List
+   - GetAll
+   - GetSingle
    - MakeMove
 
 When creating or joining the game, players subscribe to the game subscription and listen to events when moves are made.
