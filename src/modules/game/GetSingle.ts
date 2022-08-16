@@ -9,11 +9,6 @@ export class GetSingleResolver {
     async getSingle(
         @Arg('gameId') gameId: string
     ): Promise<Game | null> {
-
-        console.log(gameId);
-        const game = GameRepository.Get(gameId)
-
-        console.log(game);
-        return game
+        return GameRepository.Get(gameId)
     }
 }
