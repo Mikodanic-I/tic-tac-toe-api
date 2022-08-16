@@ -2,7 +2,7 @@ import {GameRepository} from "../database/GameRepository";
 import {v4 as uuidv4} from "uuid";
 import {JoinInput} from "../modules/game/join/JoinInput";
 import {PubSubEngine} from "type-graphql";
-import {getGamewinner} from "../modules/game/makeMove/getGameStatus";
+import {getGameStatus} from "../modules/game/makeMove/getGameStatus";
 import {GameSubscribeEvent} from "../modules/game/gameSubscribe/GameSubscribeEvent";
 import {botPlay} from "../modules/game/makeMove/botPlay";
 import {MakeMoveInput} from "../modules/game/makeMove/MakeMoveInput";
@@ -52,25 +52,23 @@ export class GameService {
 
         positions[moveX][moveY] = player
 
-        const gameWinner: number | null = getGamewinner(positions)
+        const gameStatus: string = getGameStatus(positions)
+
+        const subscriptionPayload: GameSubscribeEvent = {positions: JSON.stringify(positions), action: gameStatus}
 
 
-        const subscriptionPayload: GameSubscribeEvent = {positions: JSON.stringify(positions), action: "makeMove"}
-        const leftMoves = true
-
-        if (gameWinner) {
-            subscriptionPayload.player = gameWinner
-            subscriptionPayload.action = "win"
-        }
-        else {
-            subscriptionPayload.action = leftMoves ? "makeMove" : "draw"
+        if (gameStatus === "win") {
+            subscriptionPayload.player = player
+            activeGame.winner = player
         }
 
-        if (activeGame.type === "singleplayer" && subscriptionPayload.action === "makeMove") {
-            subscriptionPayload.positions = JSON.stringify(botPlay(positions))
-        }
-
+        const savedGame = GameRepository.Save(gameId, {...activeGame, positions: JSON.stringify(positions)})
         await pubSub.publish(gameId, subscriptionPayload)
-        return GameRepository.Save(gameId, {...activeGame, positions: JSON.stringify(positions)})
+
+        if (activeGame.type === "singleplayer" && subscriptionPayload.action === "makeMove" && player !== -1) {
+            botPlay({...activeGame, positions}, pubSub)
+        }
+
+        return savedGame
     }
 }

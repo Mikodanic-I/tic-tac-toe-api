@@ -67,14 +67,26 @@ const checkDiagonal = (positions: Positions): number | null => {
     return null
 }
 
-export function getGamewinner(positions: Positions): number | null {
+const isLeftMoves = (positions: Positions) => {
+    for (let x = 0; x < 3; x++) {
+        for (let y = 0; y < 3; y++) {
+            if (!positions[x][y]) return true
+        }
+    }
+
+    return false
+}
+
+export function getGameStatus(positions: Positions): string {
     const winner =
         checkLine(positions, 0)
         || checkLine(positions, 1)
         || checkLine(positions, 2)
         || checkDiagonal(positions)
 
-    if (winner) return winner
+    if (winner) return "win"
 
-    return null
+    if (isLeftMoves(positions)) return "makeMove"
+
+    return "draw"
 }
